@@ -222,21 +222,21 @@ cd Strata
 
 ![](../../img/tutorials-images/23.Strata/09.png)
 
-**段階 3** では Python パッケージをインストールし、**段階 4** では既製の推論エンジンをダウンロードするため、コンパイルは不要です。`No ready-made engine for v0.1.56 (HTTP Error 404)` と表示されるのは正常で、スクリプトは最新リリースのエンジンを代わりに使います。
+**段階 3** では Python パッケージをインストールします。
 
 ![](../../img/tutorials-images/23.Strata/10.png)
 
-**段階 5** では 2 つのモデルファイル（39.23 GB と 28.80 GB）をダウンロードし、それぞれの SHA-256 を検証します。**段階 6** ではモデルを Strata 用のフォーマットに変換し、speculative decoding 用の MTP ドラフト層（5.21 GB）をダウンロードします。
+**段階 4** では既製の推論エンジンをダウンロードするため、コンパイルは不要です。`No ready-made engine for v0.1.56 (HTTP Error 404)` と表示されるのは正常で、スクリプトは最新リリースのエンジンを代わりに使います。
+
+![](../../img/tutorials-images/23.Strata/11.png)
+
+**段階 5** では 2 つのモデルファイル（39.23 GB と 28.80 GB）をダウンロードし、それぞれの SHA-256 を検証します。
+
+![](../../img/tutorials-images/23.Strata/12.png)
+
+**段階 6** ではモデルを Strata 用のフォーマットに変換し、speculative decoding 用の MTP ドラフト層（5.21 GB）をダウンロードします。
 
 ```text
-=== Step 5: downloading Qwen3.8-Flash-Next IQ2_XS ===
-  The model files go in /root/Strata-data/models/IQ2_XS
-  Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf:  39.23 / 39.23 GB (100%)
-  [ok] Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf downloaded
-  Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf:  28.80 / 28.80 GB (100%)
-  [ok] Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf downloaded
-  [ok] model files present
-
 === Step 6: preparing the model for Strata ===
   [ok] model prepared: /root/Strata-data/packs/iq2_xs
   MTP draft layer:   5.21 / 5.21 GB (100%)
@@ -256,7 +256,7 @@ cd Strata
 
 `ready: http://127.0.0.1:8080/v1` と表示されれば、起動完了です。
 
-![](../../img/tutorials-images/23.Strata/11.png)
+![](../../img/tutorials-images/23.Strata/13.png)
 
 - サービスは OpenAI 互換 API（`/v1/chat/completions`）と Anthropic 互換 API（`/v1/messages`）の両方を提供します
 - この tmux ウィンドウは開いたままにしてください。閉じるとモデルが停止します
@@ -274,7 +274,7 @@ Strata は仮想マシン内部の `127.0.0.1:8080` でのみ待ち受けてい�
 ssh -L 8080:127.0.0.1:8080 -p <PORT> glows@<HOST>
 ```
 
-![](../../img/tutorials-images/23.Strata/12.png)
+![](../../img/tutorials-images/23.Strata/14.png)
 
 同じパスワードでログインしたら、このウィンドウは開いたままにしてください。閉じるとトンネルが切断されます。
 
@@ -282,7 +282,7 @@ ssh -L 8080:127.0.0.1:8080 -p <PORT> glows@<HOST>
 
 ブラウザで `http://127.0.0.1:8080` を開くと、Strata の Web インターフェースが表示されます。
 
-![](../../img/tutorials-images/23.Strata/13.png)
+![](../../img/tutorials-images/23.Strata/15.png)
 
 ### SSH トンネルでよくある問題
 
@@ -298,13 +298,13 @@ ssh -L 8080:127.0.0.1:8080 -p <PORT> glows@<HOST>
 
 `Chat` タブに質問を入力して Enter を押します。モデルは少し考えてから回答し、各回答の下にトークン数と生成速度が表示されます。
 
-![](../../img/tutorials-images/23.Strata/14.png)
+![](../../img/tutorials-images/23.Strata/16.png)
 
 ### 2. プログラミングの質問
 
 次にプログラミングの質問を試します。回答が長いため、安定した速度がわかりやすくなります。
 
-![](../../img/tutorials-images/23.Strata/15.png)
+![](../../img/tutorials-images/23.Strata/17.png)
 
 今回の実測結果：
 
@@ -319,7 +319,7 @@ Strata の開発者は、RTX 5070 と Ryzen 5 7600 を搭載したデスクト�
 
 上部の `Monitor` タブをクリックすると、Strata がこのマシンのリソースをどう使っているかを確認できます。2 つの質問をした後には、**90% 以上の Experts が VRAM から直接取得されていました**。
 
-![](../../img/tutorials-images/23.Strata/16.png)
+![](../../img/tutorials-images/23.Strata/18.png)
 
 各項目の説明：
 
@@ -347,7 +347,7 @@ curl -s http://127.0.0.1:8080/v1/chat/completions \
 | python3 -m json.tool
 ```
 
-![](../../img/tutorials-images/23.Strata/17.png)
+![](../../img/tutorials-images/23.Strata/19.png)
 
 レスポンスで注目すべき項目：
 

@@ -222,21 +222,21 @@ cd Strata
 
 ![](../../img/tutorials-images/23.Strata/09.png)
 
-**階段 3** 安裝 Python 套件；**階段 4** 下載現成的推論引擎，不需要編譯。畫面出現 `No ready-made engine for v0.1.56 (HTTP Error 404)` 是正常的，腳本會改用最新發布版的引擎：
+**階段 3** 安裝 Python 套件：
 
 ![](../../img/tutorials-images/23.Strata/10.png)
 
-**階段 5** 下載兩個模型檔（39.23 GB 與 28.80 GB），並逐一檢查 SHA-256；**階段 6** 將模型轉換成 Strata 使用的格式，並下載 speculative decoding 用的 MTP 草稿層（5.21 GB）：
+**階段 4** 下載現成的推論引擎，不需要編譯。畫面出現 `No ready-made engine for v0.1.56 (HTTP Error 404)` 是正常的，腳本會改用最新發布版的引擎：
+
+![](../../img/tutorials-images/23.Strata/11.png)
+
+**階段 5** 下載兩個模型檔（39.23 GB 與 28.80 GB），並逐一檢查 SHA-256：
+
+![](../../img/tutorials-images/23.Strata/12.png)
+
+**階段 6** 將模型轉換成 Strata 使用的格式，並下載 speculative decoding 用的 MTP 草稿層（5.21 GB）：
 
 ```text
-=== Step 5: downloading Qwen3.8-Flash-Next IQ2_XS ===
-  The model files go in /root/Strata-data/models/IQ2_XS
-  Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf:  39.23 / 39.23 GB (100%)
-  [ok] Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf downloaded
-  Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf:  28.80 / 28.80 GB (100%)
-  [ok] Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf downloaded
-  [ok] model files present
-
 === Step 6: preparing the model for Strata ===
   [ok] model prepared: /root/Strata-data/packs/iq2_xs
   MTP draft layer:   5.21 / 5.21 GB (100%)
@@ -256,7 +256,7 @@ cd Strata
 
 看到 `ready: http://127.0.0.1:8080/v1`，就代表啟動完成：
 
-![](../../img/tutorials-images/23.Strata/11.png)
+![](../../img/tutorials-images/23.Strata/13.png)
 
 - 服務同時提供 OpenAI 相容 API（`/v1/chat/completions`）與 Anthropic 相容 API（`/v1/messages`）
 - 請保持這個 tmux 視窗開著，關掉就會停止模型
@@ -274,7 +274,7 @@ Strata 只在虛擬機內部監聽 `127.0.0.1:8080`。SSH Tunnel 可以把您電
 ssh -L 8080:127.0.0.1:8080 -p <PORT> glows@<HOST>
 ```
 
-![](../../img/tutorials-images/23.Strata/12.png)
+![](../../img/tutorials-images/23.Strata/14.png)
 
 輸入同一組密碼登入後，保持這個視窗開著，關掉就會中斷 Tunnel。
 
@@ -282,7 +282,7 @@ ssh -L 8080:127.0.0.1:8080 -p <PORT> glows@<HOST>
 
 在瀏覽器開啟 `http://127.0.0.1:8080`，就能看到 Strata 的網頁介面：
 
-![](../../img/tutorials-images/23.Strata/13.png)
+![](../../img/tutorials-images/23.Strata/15.png)
 
 ### SSH Tunnel 常見問題
 
@@ -298,13 +298,13 @@ ssh -L 8080:127.0.0.1:8080 -p <PORT> glows@<HOST>
 
 在 `Chat` 分頁輸入問題後按 Enter。模型會先簡短思考再回答，每個回答下方會顯示 token 數與生成速度：
 
-![](../../img/tutorials-images/23.Strata/14.png)
+![](../../img/tutorials-images/23.Strata/16.png)
 
 ### 2. 寫程式的問題
 
 再試一個寫程式的問題，回答較長，較能看出穩定的速度：
 
-![](../../img/tutorials-images/23.Strata/15.png)
+![](../../img/tutorials-images/23.Strata/17.png)
 
 本次實測結果：
 
@@ -319,7 +319,7 @@ Strata 開發者在 RTX 5070 搭配 Ryzen 5 7600 的桌機上，測得 IQ2_XS �
 
 點擊上方的 `Monitor` 分頁，可以看到 Strata 如何使用這台機器的資源。在我們問完兩個問題後，**超過 90% 的 Experts 都直接從 VRAM 取用**：
 
-![](../../img/tutorials-images/23.Strata/16.png)
+![](../../img/tutorials-images/23.Strata/18.png)
 
 各欄位說明：
 
@@ -347,7 +347,7 @@ curl -s http://127.0.0.1:8080/v1/chat/completions \
 | python3 -m json.tool
 ```
 
-![](../../img/tutorials-images/23.Strata/17.png)
+![](../../img/tutorials-images/23.Strata/19.png)
 
 回應中值得注意的欄位：
 

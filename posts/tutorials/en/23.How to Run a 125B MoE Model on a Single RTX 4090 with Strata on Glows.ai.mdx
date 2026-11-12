@@ -222,21 +222,21 @@ The setup script runs six stages in order and shows `[ok]` as each one completes
 
 ![](../../img/tutorials-images/23.Strata/09.png)
 
-**Stage 3** installs Python packages; **Stage 4** downloads a ready-made inference engine, so there's nothing to compile. Seeing `No ready-made engine for v0.1.56 (HTTP Error 404)` is normal: the script falls back to the engine from the latest release:
+**Stage 3** installs Python packages:
 
 ![](../../img/tutorials-images/23.Strata/10.png)
 
-**Stage 5** downloads the two model files (39.23 GB and 28.80 GB) and verifies each one's SHA-256; **Stage 6** converts the model into Strata's format and downloads the MTP draft layer (5.21 GB) used for speculative decoding:
+**Stage 4** downloads a ready-made inference engine, so there's nothing to compile. Seeing `No ready-made engine for v0.1.56 (HTTP Error 404)` is normal: the script falls back to the engine from the latest release:
+
+![](../../img/tutorials-images/23.Strata/11.png)
+
+**Stage 5** downloads the two model files (39.23 GB and 28.80 GB) and verifies each one's SHA-256:
+
+![](../../img/tutorials-images/23.Strata/12.png)
+
+**Stage 6** converts the model into Strata's format and downloads the MTP draft layer (5.21 GB) used for speculative decoding:
 
 ```text
-=== Step 5: downloading Qwen3.8-Flash-Next IQ2_XS ===
-  The model files go in /root/Strata-data/models/IQ2_XS
-  Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf:  39.23 / 39.23 GB (100%)
-  [ok] Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf downloaded
-  Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf:  28.80 / 28.80 GB (100%)
-  [ok] Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf downloaded
-  [ok] model files present
-
 === Step 6: preparing the model for Strata ===
   [ok] model prepared: /root/Strata-data/packs/iq2_xs
   MTP draft layer:   5.21 / 5.21 GB (100%)
@@ -256,7 +256,7 @@ The model starts automatically when the setup script finishes. During startup St
 
 When you see `ready: http://127.0.0.1:8080/v1`, startup is complete:
 
-![](../../img/tutorials-images/23.Strata/11.png)
+![](../../img/tutorials-images/23.Strata/13.png)
 
 - The service provides both an OpenAI-compatible API (`/v1/chat/completions`) and an Anthropic-compatible API (`/v1/messages`)
 - Keep this tmux window open; closing it stops the model
@@ -274,7 +274,7 @@ Open a new terminal window on your own computer and add `-L 8080:127.0.0.1:8080`
 ssh -L 8080:127.0.0.1:8080 -p <PORT> glows@<HOST>
 ```
 
-![](../../img/tutorials-images/23.Strata/12.png)
+![](../../img/tutorials-images/23.Strata/14.png)
 
 Log in with the same password and keep this window open; closing it shuts down the tunnel.
 
@@ -282,7 +282,7 @@ Log in with the same password and keep this window open; closing it shuts down t
 
 Open `http://127.0.0.1:8080` in your browser to see Strata's web interface:
 
-![](../../img/tutorials-images/23.Strata/13.png)
+![](../../img/tutorials-images/23.Strata/15.png)
 
 ### Common Issue with the SSH Tunnel
 
@@ -298,13 +298,13 @@ Port 8080 on your computer is already used by another program.
 
 Type a question on the `Chat` tab and press Enter. The model thinks briefly before answering, and each answer shows its token count and generation speed underneath:
 
-![](../../img/tutorials-images/23.Strata/14.png)
+![](../../img/tutorials-images/23.Strata/16.png)
 
 ### 2. A Coding Question
 
 Next, try a coding question. The longer answer gives a better picture of the steady-state speed:
 
-![](../../img/tutorials-images/23.Strata/15.png)
+![](../../img/tutorials-images/23.Strata/17.png)
 
 Our results:
 
@@ -319,7 +319,7 @@ The Strata developer measured 79 tokens per second for IQ2_XS on a desktop with 
 
 Click the `Monitor` tab at the top to see how Strata uses the machine's resources. After our two questions, **more than 90% of the experts were served directly from VRAM**:
 
-![](../../img/tutorials-images/23.Strata/16.png)
+![](../../img/tutorials-images/23.Strata/18.png)
 
 Field descriptions:
 
@@ -347,7 +347,7 @@ curl -s http://127.0.0.1:8080/v1/chat/completions \
 | python3 -m json.tool
 ```
 
-![](../../img/tutorials-images/23.Strata/17.png)
+![](../../img/tutorials-images/23.Strata/19.png)
 
 Fields worth noting in the response:
 
